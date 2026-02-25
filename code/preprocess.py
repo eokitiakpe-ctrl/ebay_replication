@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 # -----------------------------
 df = pd.read_csv('input/PaidSearch.csv')
 
-df['date'] = pd.to_datetime(df['date'])
+df['date'] = pd.to_datetime(df['date'], format='%d-%b-%y')
 df['log_revenue'] = np.log(df['revenue'])
 
 # -----------------------------
