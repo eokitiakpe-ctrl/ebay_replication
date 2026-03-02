@@ -36,18 +36,42 @@ se = np.sqrt(treated_diff.var(ddof=1)/len(treated_diff) +
 ci_low = gamma_hat - 1.96*se
 ci_high = gamma_hat + 1.96*se
 
+
 print("Gamma hat:", round(gamma_hat, 4))
 print("Std Error:", round(se, 4))
 print("95% CI:", [round(ci_low,4), round(ci_high,4)])
 
+
+# Exponentiated (levels) results
+gamma_hat_exp = np.exp(gamma_hat)
+ci_lower_exp = np.exp(ci_low)
+ci_upper_exp = np.exp(ci_high)
+
+
 # Save LaTeX table
-os.makedirs("output/tables", exist_ok=True)
+latex = r"""\begin{table}[h]
+\centering
+\caption{Difference-in-Differences Estimate of the Effect of Paid Search on Revenue}
+\begin{tabular}{lcc}
+\hline
+ & Log Scale & Levels (exp) \\
+\hline
+Point Estimate ($\hat{\gamma}$) & %.4f & %.4f \\
+Standard Error & %.4f & --- \\
+95\%% CI & [%.4f, %.4f] & [%.4f, %.4f] \\
+\hline
+\end{tabular}
+\label{tab:did}
+\end{table}
+""" % (
+    gamma_hat,
+    gamma_hat_exp,
+    se,
+    ci_low,
+    ci_high,
+    ci_lower_exp,
+    ci_upper_exp
+)
 
 with open("output/tables/did_table.tex", "w") as f:
-    f.write("\\begin{tabular}{lccc}\n")
-    f.write("\\hline\n")
-    f.write("Estimate & Std. Error & CI Low & CI High \\\\\n")
-    f.write("\\hline\n")
-    f.write(f"{gamma_hat:.4f} & {se:.4f} & {ci_low:.4f} & {ci_high:.4f} \\\\\n")
-    f.write("\\hline\n")
-    f.write("\\end{tabular}\n")
+    f.write(latex)
