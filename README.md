@@ -19,6 +19,11 @@ DMAs, eBay stopped bidding on Google AdWords on May 22, 2012. The remaining
 and Paid Search Effectiveness: A Large-Scale Field Experiment." *Econometrica*,
 83(1): 155–174.
 
+## Key Findings
+
+- Difference-in-Differences estimates show limited causal impact of paid search on revenue  
+- Observed correlations between ads and sales overstate true effectiveness  
+- Results emphasize the importance of causal inference in evaluating marketing strategies  
 ## Repository Structure
 
 ```
